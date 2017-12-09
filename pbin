@@ -173,7 +173,7 @@ done
 
 [ $logintopastebin -ne 0 ] && auth_user
 api_paste_code=$( cat - )
-curl -0 --show-error \
+curl -0 --silent --show-error \
 	--data "api_dev_key=$api_dev_key" \
 	--data "api_option=paste" \
 	--data "api_paste_code=$api_paste_code" \
@@ -183,7 +183,7 @@ curl -0 --show-error \
 	--data "api_user_key=$api_user_key" \
 	--data-urlencode "api_paste_name=$api_paste_name" \
 	--data-urlencode "api_paste_code=$api_paste_code" \
-		"$api_url/api_post.php"
+		"$api_url/api_post.php" | sed 's/com\//com\/raw\//'
 
 echo
 exit $?
